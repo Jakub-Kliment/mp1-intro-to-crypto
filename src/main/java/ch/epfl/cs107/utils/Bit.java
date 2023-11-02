@@ -58,12 +58,9 @@ public final class Bit {
      * @return <code>true</code> if the bit is '1' and <code>false</code> otherwise
      */
     public static boolean getXthBit(int value, int pos) {
-        for (int i = 32; i>pos ; i-=1){
-            if (value>1*Math.pow(10,i)){
-                value-= (int) Math.pow(10.0,i);
-            }
-        }
-        return value >= Math.pow(10, pos);
+        double compare = Math.pow(2,pos);
+        int sol = value & (int) compare;
+        return sol != 0;
         //return Helper.fail("NOT IMPLEMENTED");
     }
 
