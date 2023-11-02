@@ -72,7 +72,8 @@ public final class Bit {
      * @return <code>true</code> if the bit is '1' and <code>false</code> otherwise
      */
     public static boolean getLSB(int value) {
-        return Helper.fail("NOT IMPLEMENTED");
+        return value%2!=0;
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
