@@ -70,7 +70,16 @@ public final class Text {
      * @return <b>UTF-8 String</b> representation of the bit array
      */
     public static String toString(boolean[] bitArray) {
-        return Helper.fail("NOT IMPLEMENTED");
+        int length = bitArray.length;
+        boolean[] oneByte = new boolean[8];
+        byte[] strBytes = new byte[length/8];
+        for (int i = 0; i < length; i += 8) {
+            for (int j = 0; j < 8; ++j) {
+                oneByte[j] = bitArray[i + j];
+            }
+            strBytes[i/8] = toByte(oneByte);
+        }
+        return toString(strBytes);
     }
 
 }
