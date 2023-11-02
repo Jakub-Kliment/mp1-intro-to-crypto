@@ -52,9 +52,9 @@ public final class Main {
         // ========== Test Bit ==========
         assert testXthBit();
         assert testGetLSB();
-        //assert testEmbedInXthBit();
-        //assert testEmbedInLSB();
-        //assert testByteConversion();
+        assert testEmbedInXthBit();
+        assert testEmbedInLSB();
+        assert testByteConversion();
         // ========== Test Text ==========
         //assert testToBitArray();
         Helper.dialog("Tests", "Bit and Text manipulation passed");

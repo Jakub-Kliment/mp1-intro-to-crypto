@@ -140,8 +140,17 @@ public final class Bit {
      * @param bitArray bit array representation to convert
      * @return the byte representation of the bit array
      */
-    public static byte toByte(boolean[] bitArray){
-        return Helper.fail("NOT IMPLEMENTED");
+    public static byte toByte(boolean[] bitArray) {
+        assert bitArray != null : "Tableau vide.";
+        assert bitArray.length == 8 : "Tableau doit contenir 8 boolean.";
+        byte value = 0;
+        int length = bitArray.length;
+        for (int i = 0; i < length; ++i) {
+            if (bitArray[length - i - 1]) {
+                byte tmp = (byte)Math.pow(2,i);
+                value += tmp;
+            }
+        }
+        return value;
     }
-
 }
