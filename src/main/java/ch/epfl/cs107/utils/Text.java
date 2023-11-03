@@ -74,9 +74,7 @@ public final class Text {
         boolean[] oneByte = new boolean[8];
         byte[] strBytes = new byte[length/8];
         for (int i = 0; i < length; i += 8) {
-            for (int j = 0; j < 8; ++j) {
-                oneByte[j] = bitArray[i + j];
-            }
+            System.arraycopy(bitArray, i, oneByte, 0, 8);
             strBytes[i/8] = toByte(oneByte);
         }
         return toString(strBytes);
