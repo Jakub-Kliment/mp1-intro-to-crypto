@@ -184,16 +184,16 @@ public final class Image {
      */
     public static int[][] fromBinary(boolean[][] image){
         assert image != null : "Image null";
-        for (int i = 1 ; i<image.length ; i++){
+        for (int i = 1 ; i < image.length ; i++){
             assert image[i].length==image[i-1].length : "All images lines need to be the same.";
         }
         int[][] imageGrey = new int[image.length][image[0].length];
-        for(int i = 0 ; i< image.length ; i++){
-            for(int j = 0 ; j<image[i].length ; j++){
+        for (int i = 0 ; i < image.length ; i++){
+            for (int j = 0 ; j < image[i].length ; j++){
                 if (image[i][j]){
-                    imageGrey[i][j]=0x00;
+                    imageGrey[i][j]=0xFFFFFFFF;
                 } else {
-                    imageGrey[i][j]=0xFF;
+                    imageGrey[i][j]=0xFF000000;
                 }
             }
         }
