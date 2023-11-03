@@ -151,7 +151,14 @@ public final class Image {
      * @return <b>gray ARGB</b> representation
      */
     public static int[][] fromGray(int[][] image){
-        return Helper.fail("NOT IMPLEMENTED");
+        int[][] imageARGB = new int[image.length][image[0].length];
+        for(int i = 0 ; i< image.length ; i++){
+            for(int j = 0 ; j<image[i].length ; j++){
+                imageARGB[i][j] = argb((byte) 255,(byte) image[i][j],(byte) image[i][j],(byte) image[i][j]);
+            }
+        }
+        return imageARGB;
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
