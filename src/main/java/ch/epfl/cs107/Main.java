@@ -62,8 +62,8 @@ public final class Main {
         assert testConversionARGBInt();
         assert testPixelToGray();
         assert testGrayToBinary();
-        //assert testImageToGray();
-        //assert testGrayImageToBinary();
+        assert testImageToGray();
+        assert testGrayImageToBinary();
         assert testImageFromGray();
         //assert testImageFromBinary();
         Helper.dialog("Tests ", "Image manipulation passed");

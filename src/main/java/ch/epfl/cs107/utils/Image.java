@@ -133,7 +133,7 @@ public final class Image {
         assert image != null : "Image null";
         int[][] gray = new int[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
-            for (int j = 0; j < image[i].length; ++i) {
+            for (int j = 0; j < image[i].length; ++j) {
                 gray[i][j] = gray(image[i][j]);
             }
         }
