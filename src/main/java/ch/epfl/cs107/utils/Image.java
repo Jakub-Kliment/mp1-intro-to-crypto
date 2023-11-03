@@ -37,7 +37,16 @@ public final class Image {
      * @return packed value of the pixel
      */
     public static int argb(byte alpha, byte red, byte green, byte blue){
-        return Helper.fail("NOT IMPLEMENTED");
+        int color = 0;
+        color += Byte.toUnsignedInt(alpha);
+        color = color << 8;
+        color += Byte.toUnsignedInt(red);
+        color = color << 8;
+        color += Byte.toUnsignedInt(green);
+        color = color << 8;
+        color += Byte.toUnsignedInt(blue);
+        return color;
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -47,7 +56,8 @@ public final class Image {
      * @return the alpha component of the pixel
      */
     public static byte alpha(int pixel){
-        return Helper.fail("NOT IMPLEMENTED");
+        return (byte) (pixel >> 24);
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -57,7 +67,8 @@ public final class Image {
      * @return the red component of the pixel
      */
     public static byte red(int pixel){
-        return Helper.fail("NOT IMPLEMENTED");
+        return (byte) ((pixel >> 16)&(0b11111111));
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -67,7 +78,8 @@ public final class Image {
      * @return the green component of the pixel
      */
     public static byte green(int pixel){
-        return Helper.fail("NOT IMPLEMENTED");
+        return (byte) ((pixel >> 8)&(0b11111111));
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -77,7 +89,8 @@ public final class Image {
      * @return the blue component of the pixel
      */
     public static byte blue(int pixel){
-        return Helper.fail("NOT IMPLEMENTED");
+        return (byte) ((pixel)&(0b11111111));
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
