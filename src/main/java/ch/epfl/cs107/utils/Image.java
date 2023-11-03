@@ -130,7 +130,14 @@ public final class Image {
      * @return the gray scale version of the image
      */
     public static int[][] toGray(int[][] image){
-        return Helper.fail("NOT IMPLEMENTED");
+        assert image != null : "Image null";
+        int[][] gray = new int[image.length][image[0].length];
+        for (int i = 0; i < image.length; ++i) {
+            for (int j = 0; j < image[i].length; ++i) {
+                gray[i][j] = gray(image[i][j]);
+            }
+        }
+        return gray;
     }
 
     /**
