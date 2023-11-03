@@ -148,7 +148,14 @@ public final class Image {
      * @return binary representation of the image
      */
     public static boolean[][] toBinary(int[][] image, int threshold){
-        return Helper.fail("NOT IMPLEMENTED");
+        assert image != null : "Image null";
+        boolean[][] grayToBinary = new boolean[image.length][image[0].length];
+        for (int i = 0; i < image.length; ++i) {
+            for (int j = 0; j < image[i].length; ++j) {
+                grayToBinary[i][j] = binary(image[i][j], threshold);
+            }
+        }
+        return grayToBinary;
     }
 
     /**
