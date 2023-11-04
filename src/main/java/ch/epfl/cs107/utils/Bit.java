@@ -40,13 +40,23 @@ public final class Bit {
         double compare = 0.0;
         int solution;
         if (m) {
-            compare = Math.pow(2,pos);
-            solution = value | (int)compare;
-            return solution;
+            if (pos == 31) {
+                solution = value | Integer.MIN_VALUE;
+                return solution;
+            } else {
+                compare = Math.pow(2, pos);
+                solution = value | (int) compare;
+                return solution;
+            }
         } else {
-            compare = ~((int) Math.pow(2, pos));
-            solution = value & (int) compare;
-            return solution;
+            if (pos == 31) {
+                solution = value & Integer.MAX_VALUE;
+                return solution;
+            } else {
+                compare = ~((int) Math.pow(2, pos));
+                solution = value & (int) compare;
+                return solution;
+            }
         }
     }
 

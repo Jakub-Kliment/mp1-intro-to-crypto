@@ -46,6 +46,7 @@ public final class Text {
      * @return <b>UTF-8</b> representation of the string in the <b>bit array</b> format
      */
     public static boolean[] toBitArray(String str){
+        assert str != null : "Please provide a string";
         byte[] strByte = toBytes(str);
         boolean[] strBoolean = new boolean[(strByte.length)*8];
         for (int i = 0 ; i<=str.length() ; i++){
