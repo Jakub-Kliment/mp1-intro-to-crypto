@@ -46,7 +46,13 @@ public final class ImageSteganography {
      * @return ARGB image with the image embedded on the cover
      */
     public static int[][] embedGray(int[][] cover, int[][] grayImage, int threshold){
-        return Helper.fail("NOT IMPLEMENTED");
+        assert cover != null && grayImage != null : "Provide image";
+        assert threshold >= 0 && threshold <= 255 : "Treshold not valid";
+        assert cover.length < grayImage.length : "Cover image must be bigger that greyImage";
+        if (cover.length == 0) {
+            return new int[0][0];
+        }
+        return embedBW(cover, toBinary(grayImage, threshold));
     }
 
     /**
