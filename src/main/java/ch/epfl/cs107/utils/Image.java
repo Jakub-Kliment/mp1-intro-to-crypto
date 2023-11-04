@@ -115,6 +115,7 @@ public final class Image {
      * @return binary representation of a pixel
      */
     public static boolean binary(int gray, int threshold){
+        assert gray <= 255 && gray >= 0 : "Gray value not valid";
         return gray >= threshold;
         //return Helper.fail("NOT IMPLEMENTED");
     }
@@ -130,9 +131,13 @@ public final class Image {
      * @return the gray scale version of the image
      */
     public static int[][] toGray(int[][] image){
-        assert image != null : "Image null";
+        assert image != null : "Image null.";
+        if (image.length == 0) {
+            return new int[0][0];
+        }
         int[][] gray = new int[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
+            assert image[i] != null : "Image representation contains null.";
             for (int j = 0; j < image[i].length; ++j) {
                 gray[i][j] = gray(image[i][j]);
             }
@@ -149,8 +154,12 @@ public final class Image {
      */
     public static boolean[][] toBinary(int[][] image, int threshold){
         assert image != null : "Image null";
+        if (image.length == 0) {
+            return new boolean[0][0];
+        }
         boolean[][] grayToBinary = new boolean[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
+            assert image[i] != null : "Image representation contains null.";
             for (int j = 0; j < image[i].length; ++j) {
                 grayToBinary[i][j] = binary(image[i][j], threshold);
             }
@@ -166,8 +175,12 @@ public final class Image {
      */
     public static int[][] fromGray(int[][] image){
         assert image != null : "Image null";
+        if (image.length == 0) {
+            return new int[0][0];
+        }
         int[][] imageARGB = new int[image.length][image[0].length];
-        for(int i = 0 ; i< image.length ; i++){
+        for(int i = 0 ; i < image.length ; i++){
+            assert image[i] != null : "Image representation contains null.";
             for(int j = 0 ; j<image[i].length ; j++){
                 imageARGB[i][j] = argb((byte) 255,(byte) image[i][j],(byte) image[i][j],(byte) image[i][j]);
             }
@@ -184,11 +197,12 @@ public final class Image {
      */
     public static int[][] fromBinary(boolean[][] image){
         assert image != null : "Image null";
-        for (int i = 1 ; i < image.length ; i++){
-            assert image[i].length==image[i-1].length : "All images lines need to be the same.";
+        if (image.length == 0) {
+            return new int[0][0];
         }
         int[][] imageGrey = new int[image.length][image[0].length];
         for (int i = 0 ; i < image.length ; i++){
+            assert image[i] != null : "Image representation contains null.";
             for (int j = 0 ; j < image[i].length ; j++){
                 if (image[i][j]){
                     imageGrey[i][j]=0xFFFFFFFF;
