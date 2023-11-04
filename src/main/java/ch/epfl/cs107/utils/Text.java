@@ -53,7 +53,6 @@ public final class Text {
             System.arraycopy(Bit.toBitArray(strByte[i]),0,strBoolean,i*8,8);
         }
         return strBoolean;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -71,6 +70,7 @@ public final class Text {
      * @return <b>UTF-8 String</b> representation of the bit array
      */
     public static String toString(boolean[] bitArray) {
+        assert bitArray != null : "Please provide a an array";
         int length = bitArray.length;
         boolean[] oneByte = new boolean[8];
         byte[] strBytes = new byte[length/8];
