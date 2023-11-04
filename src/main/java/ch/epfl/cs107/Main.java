@@ -78,7 +78,7 @@ public final class Main {
         //testCrypto(message, key);
         Helper.dialog("Tests ", "Cryptography passed");
         // ========== Test Steganography Methods ==========
-        //assert testEmbedBWImage();
+        assert testEmbedBWImage();
         //assert testEmbedText();
         //assert testImageSteganographyWithImages("the-starry-night");
         Helper.dialog("Tests ", "ImageSteganography passed");

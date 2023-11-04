@@ -56,7 +56,17 @@ public final class ImageSteganography {
      * @return ARGB image with the image embedded on the cover
      */
     public static int[][] embedBW(int[][] cover, boolean[][] load){
-        return Helper.fail("NOT IMPLEMENTED");
+        assert cover != null && load != null : "Image null";
+        assert cover.length <= load.length : "Cover bigger than load";
+        if (cover.length == 0) { return new int[0][0]; }
+        int[][] newImage = new int[cover.length][cover[0].length];
+        for (int i = 0; i < cover.length; ++i) {
+            assert cover[i] != null : "Image containing null pointer.";
+            for (int j = 0; j < cover[i].length; ++j) {
+                newImage[i][j] = embedInLSB(cover[i][j], load[i][j]);
+            }
+        }
+        return newImage;
     }
 
     // ============================================================================================
