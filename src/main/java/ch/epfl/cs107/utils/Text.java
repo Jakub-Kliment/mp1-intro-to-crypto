@@ -3,6 +3,7 @@ package ch.epfl.cs107.utils;
 import ch.epfl.cs107.Helper;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import static ch.epfl.cs107.utils.Text.*;
 import static ch.epfl.cs107.utils.Image.*;
@@ -48,9 +49,9 @@ public final class Text {
     public static boolean[] toBitArray(String str){
         assert str != null : "Please provide a string";
         byte[] strByte = toBytes(str);
-        boolean[] strBoolean = new boolean[(strByte.length)*8];
-        for (int i = 0 ; i<=str.length() ; i++){
-            System.arraycopy(Bit.toBitArray(strByte[i]),0,strBoolean,i*8,8);
+        boolean[] strBoolean = new boolean[(strByte.length)*Byte.SIZE];
+        for (int i = 0 ; i<strByte.length ; i++){
+            System.arraycopy(Bit.toBitArray(strByte[i]),0,strBoolean,i*Byte.SIZE,Byte.SIZE);
         }
         return strBoolean;
     }
@@ -70,15 +71,15 @@ public final class Text {
      * @return <b>UTF-8 String</b> representation of the bit array
      */
     public static String toString(boolean[] bitArray) {
-        assert bitArray != null : "Please provide a an array";
-        int length = bitArray.length;
+        assert bitArray != null : "Please provide an array";
+        boolean[] bitArrayRight = new boolean[(bitArray.length/Byte.SIZE)*8];
+        System.arraycopy(bitArray,0,bitArrayRight,0,(bitArray.length/Byte.SIZE)*8);
         boolean[] oneByte = new boolean[8];
-        byte[] strBytes = new byte[length/8];
-        for (int i = 0; i < length; i += 8) {
-            System.arraycopy(bitArray, i, oneByte, 0, 8);
+        byte[] strBytes = new byte[bitArrayRight.length/8];
+        for (int i = 0; i < bitArrayRight.length; i += 8) {
+            System.arraycopy(bitArrayRight, i, oneByte, 0, 8);
             strBytes[i/8] = toByte(oneByte);
         }
         return toString(strBytes);
     }
-
 }
