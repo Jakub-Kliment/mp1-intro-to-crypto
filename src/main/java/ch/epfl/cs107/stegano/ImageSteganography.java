@@ -77,9 +77,7 @@ public final class ImageSteganography {
             index = i;
         }
         for (int i = index + 1; i < cover.length; ++i) {
-            for (int j = 0; j < cover[i].length; ++j) {
-                newImage[i][j] = cover[i][j];
-            }
+            System.arraycopy(cover[i], 0, newImage[i], 0, cover[i].length);
         }
         return newImage;
     }
