@@ -57,7 +57,18 @@ public class TextSteganography {
      * @return extracted message
      */
     public static boolean[] revealBitArray(int[][] image) {
-        return Helper.fail("NOT IMPLEMENTED");
+        assert image != null : "Image null";
+        if (image.length == 0) { return new boolean[0]; }
+        boolean[] boolLSB = new boolean[image.length * image[0].length];
+        int index = 0;
+        for (int i = 0; i < image.length; ++i) {
+            assert image[i] != null : "Image containing null";
+            for (int j = 0; j < image[0].length; ++j) {
+                boolLSB[index] = getLSB(image[i][j]);
+                index++;
+            }
+        }
+        return boolLSB;
     }
 
 
