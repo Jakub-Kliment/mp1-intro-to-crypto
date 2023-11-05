@@ -80,7 +80,7 @@ public final class Main {
         // ========== Test Steganography Methods ==========
         assert testEmbedBWImage();
         //assert testEmbedText();
-        //assert testImageSteganographyWithImages("the-starry-night");
+        assert testImageSteganographyWithImages("the-starry-night");
         Helper.dialog("Tests ", "ImageSteganography passed");
     }
 

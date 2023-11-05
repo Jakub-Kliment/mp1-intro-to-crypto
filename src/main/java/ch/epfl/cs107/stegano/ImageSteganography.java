@@ -35,7 +35,11 @@ public final class ImageSteganography {
      * @return ARGB image with the image embedded on the cover
      */
     public static int[][] embedARGB(int[][] cover, int[][] argbImage, int threshold){
-        return Helper.fail("NOT IMPLEMENTED");
+        assert cover != null && argbImage != null : "Provide image";
+        assert threshold >= 0 && threshold <= 255 : "Treshold not valid";
+        assert cover.length >= argbImage.length : "Cover image must be bigger than argbImage";
+        if (cover.length == 0) { return new int[0][0]; }
+        return embedBW(cover, toBinary(toGray(argbImage), threshold));
     }
 
     /**
@@ -48,10 +52,8 @@ public final class ImageSteganography {
     public static int[][] embedGray(int[][] cover, int[][] grayImage, int threshold){
         assert cover != null && grayImage != null : "Provide image";
         assert threshold >= 0 && threshold <= 255 : "Treshold not valid";
-        assert cover.length < grayImage.length : "Cover image must be bigger that greyImage";
-        if (cover.length == 0) {
-            return new int[0][0];
-        }
+        assert cover.length >= grayImage.length : "Cover image must be bigger that greyImage";
+        if (cover.length == 0) { return new int[0][0]; }
         return embedBW(cover, toBinary(grayImage, threshold));
     }
 
@@ -63,13 +65,20 @@ public final class ImageSteganography {
      */
     public static int[][] embedBW(int[][] cover, boolean[][] load){
         assert cover != null && load != null : "Image null";
-        assert cover.length <= load.length : "Cover bigger than load";
+        assert cover.length >= load.length : "Cover bigger than load";
         if (cover.length == 0) { return new int[0][0]; }
         int[][] newImage = new int[cover.length][cover[0].length];
-        for (int i = 0; i < cover.length; ++i) {
+        int index = 0;
+        for (int i = 0; i < load.length; ++i) {
             assert cover[i] != null : "Image containing null pointer.";
-            for (int j = 0; j < cover[i].length; ++j) {
+            for (int j = 0; j < load[i].length; ++j) {
                 newImage[i][j] = embedInLSB(cover[i][j], load[i][j]);
+            }
+            index = i;
+        }
+        for (int i = index + 1; i < cover.length; ++i) {
+            for (int j = 0; j < cover[i].length; ++j) {
+                newImage[i][j] = cover[i][j];
             }
         }
         return newImage;
