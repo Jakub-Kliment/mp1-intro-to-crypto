@@ -61,10 +61,10 @@ public class TextSteganography {
         if (image.length == 0) { return new boolean[0]; }
         boolean[] boolLSB = new boolean[image.length * image[0].length];
         int index = 0;
-        for (int i = 0; i < image.length; ++i) {
-            assert image[i] != null : "Image containing null";
-            for (int j = 0; j < image[0].length; ++j) {
-                boolLSB[index] = getLSB(image[i][j]);
+        for (int[] column : image) {
+            assert column != null : "Image containing null";
+            for (int row : column) {
+                boolLSB[index] = getLSB(row);
                 index++;
             }
         }
