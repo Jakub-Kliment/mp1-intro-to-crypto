@@ -55,7 +55,14 @@ public final class Decrypt {
      * @return decoded message
      */
     public static byte[] vigenere(byte[] cipher, byte[] keyword) {
-        return Helper.fail("NOT IMPLEMENTED");
+        assert keyword != null : "The keyword is empty";
+        assert cipher != null : "The text is empty";
+        byte[] plainText = new byte[cipher.length];
+        for (int i = 0 ; i< plainText.length ; i++){
+            plainText[i] = (byte) (cipher[i]-keyword[i]);
+        }
+        return plainText;
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
