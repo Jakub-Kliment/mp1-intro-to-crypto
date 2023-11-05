@@ -34,7 +34,21 @@ public class TextSteganography {
      * @return ARGB image with the message embedded
      */
     public static int[][] embedBitArray(int[][] cover, boolean[] message) {
-        return Helper.fail("NOT IMPLEMENTED");
+        assert cover != null : "Image null";
+        if (cover.length == 0) { return new int[0][0]; }
+        int [][] newImage = new int[cover.length][cover[0].length];
+        int index = 0;
+        for (int i = 0; i < cover.length; ++i) {
+            assert cover[i] != null : "Image containing null";
+            for (int j = 0; j < cover[i].length; ++j) {
+                newImage[i][j] = cover[i][j];
+                if (index < message.length) {
+                    newImage[i][j] = embedInLSB(newImage[i][j], message[index]);
+                }
+                index++;
+            }
+        }
+        return newImage;
     }
 
     /**
