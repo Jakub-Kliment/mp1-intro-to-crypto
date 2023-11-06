@@ -84,9 +84,22 @@ public class TextSteganography {
      * @return ARGB image with the message embedded
      */
     public static int[][] embedText(int[][] cover, byte[] message) {
-        return Helper.fail("NOT IMPLEMENTED");
+        assert cover != null && message != null : "Null pointer";
+        if (cover.length == 0) { return new int[0][0]; }
+        boolean[][] boolMessage = new boolean[message.length][8];
+        boolean[] newLSB = new boolean[message.length * 8];
+        for (int i = 0; i < message.length; ++i) {
+            boolMessage[i] = toBitArray(message[i]);
+        }
+        int index = 0;
+        for (boolean[] booleans : boolMessage) {
+            for (int j = 0; j < 8; ++j) {
+                newLSB[index] = booleans[j];
+                index++;
+            }
+        }
+        return embedBitArray(cover, newLSB);
     }
-
     /**
      * Extract a String from an image
      * @param image Image to extract from
