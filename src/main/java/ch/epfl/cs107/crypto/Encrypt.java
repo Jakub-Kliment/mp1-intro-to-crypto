@@ -2,6 +2,8 @@ package ch.epfl.cs107.crypto;
 
 import ch.epfl.cs107.Helper;
 
+import java.util.Random;
+
 import static ch.epfl.cs107.utils.Text.*;
 import static ch.epfl.cs107.utils.Image.*;
 import static ch.epfl.cs107.utils.Bit.*;
@@ -93,7 +95,13 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] xor(byte[] plainText, byte key) {
-        return Helper.fail("NOT IMPLEMENTED");
+        assert plainText != null : "The text is empty";
+        byte[] cypher = new byte[plainText.length];
+        for (int i = 0 ; i<plainText.length ; i++){
+            cypher[i] = (byte) (plainText[i]^key);
+        }
+        return (cypher);
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -108,7 +116,14 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] oneTimePad(byte[] plainText, byte[] pad) {
-        return Helper.fail("NOT IMPLEMENTED");
+        assert plainText != null : "The text is empty";
+        assert pad.length == plainText.length : "The text and the mask need to be the same size";
+        byte[] cypher = new byte[plainText.length];
+        for (int i = 0 ; i<plainText.length ; i++){
+            cypher[i] = (byte) (plainText[i]^pad[i]);
+        }
+        return (cypher);
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -118,7 +133,15 @@ public final class Encrypt {
      * @param result Array containing the result after the execution
      */
     public static void oneTimePad(byte[] plainText, byte[] pad, byte[] result) {
-        Helper.fail("NOT IMPLEMENTED");
+        Random r = new Random();
+        assert plainText != null : "The text is empty";
+        assert plainText.length == result.length;
+        assert pad.length == result.length;
+        for (int i = 0 ; i<plainText.length ; i++){
+            pad[i] = (byte) r.nextInt(256);
+            result[i] = (byte) (plainText[i]^pad[i]);
+        }
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
 }
