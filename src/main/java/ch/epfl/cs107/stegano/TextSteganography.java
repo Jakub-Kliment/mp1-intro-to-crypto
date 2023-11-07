@@ -106,7 +106,26 @@ public class TextSteganography {
      * @return extracted message
      */
     public static byte[] revealText(int[][] image) {
-        return Helper.fail("NOT IMPLEMENTED");
+        assert image != null : "Null pointer";
+        if (image.length == 0) {
+            return new byte[0];
+        }
+        assert image[0] != null : "Null pointer";
+        boolean[] imageLSB = new boolean[image.length * image[0].length];
+        int index = 0;
+        for (int[] column : image) {
+            assert column != null : "Null pointer";
+            for (int row : column) {
+                imageLSB[index] = getLSB(row);
+                index++;
+            }
+        }
+        byte[] message = new byte[imageLSB.length / 8];
+        for (int i = 0; i < imageLSB.length / 8; i += 8) {
+            boolean[] oneByte = new boolean[8];
+            System.arraycopy(imageLSB, i, oneByte, 0, 8);
+            message[i] = toByte(oneByte);
+        }
+        return message;
     }
-
 }
