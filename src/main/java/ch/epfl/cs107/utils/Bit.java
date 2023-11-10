@@ -145,8 +145,8 @@ public final class Bit {
      * @return the byte representation of the bit array
      */
     public static byte toByte(boolean[] bitArray) {
-        assert bitArray != null : "Tableau vide.";
-        assert bitArray.length == 8 : "Tableau doit contenir 8 boolean.";
+        assert nullArray(bitArray);
+        assert bitArray.length == Byte.SIZE;
         byte value = 0;
         int length = bitArray.length;
         for (int i = 0; i < length; ++i) {
@@ -166,4 +166,5 @@ public final class Bit {
         }
         return false;
     }
+    public static boolean nullArray(boolean[] array) { return array != null; }
 }
