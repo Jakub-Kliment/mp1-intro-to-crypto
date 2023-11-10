@@ -65,9 +65,12 @@ public final class ImageSteganography {
      * @return ARGB image with the image embedded on the cover
      */
     public static int[][] embedBW(int[][] cover, boolean[][] load){
-        assert nullImage(cover) && nullImage(load): "Image null";
+        assert nullImage(cover) && nullImage(load);
         assert nullRow(cover) && nullRow(load);
-        assert sizeCompatibility(cover) && sizeCompatibility(load);
+        assert shapeCompatibility(cover) && shapeCompatibility(load);
+        assert emptyImage(cover) && emptyImage(load);
+        assert sizeCompatibility(cover, load);
+
         int[][] newImage = new int[cover.length][cover[0].length];
         int index = 0;
         for (int i = 0; i < load.length; ++i) {
@@ -92,9 +95,11 @@ public final class ImageSteganography {
      * @return binary representation of the hidden image
      */
     public static boolean[][] revealBW(int[][] image) {
-        assert nullImage(image): "Image null";
+        assert nullImage(image);
         assert nullRow(image);
-        assert sizeCompatibility(image);
+        assert shapeCompatibility(image);
+        assert emptyImage(image);
+
         boolean[][] imageLSB = new boolean[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
             for (int j = 0; j < image[0].length; ++j) {

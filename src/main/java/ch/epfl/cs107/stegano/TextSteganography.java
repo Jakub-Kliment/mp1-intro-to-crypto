@@ -60,6 +60,8 @@ public class TextSteganography {
     public static boolean[] revealBitArray(int[][] image) {
         assert nullImage(image);
         assert nullRow(image);
+        assert shapeCompatibility(image);
+
         if (image.length == 0) { return new boolean[0]; }
         boolean[] boolLSB = new boolean[image.length * image[0].length];
         int index = 0;
@@ -87,6 +89,8 @@ public class TextSteganography {
     public static int[][] embedText(int[][] cover, byte[] message) {
         assert nullImage(cover) && message != null;
         assert nullRow(cover);
+        assert shapeCompatibility(cover);
+
         if (cover.length == 0) { return new int[0][0]; }
         boolean[][] boolMessage = new boolean[message.length][8];
         boolean[] newLSB = new boolean[message.length * 8];
@@ -110,6 +114,9 @@ public class TextSteganography {
     public static byte[] revealText(int[][] image) {
         assert nullImage(image);
         assert nullRow(image);
+        assert emptyImage(image);
+        assert shapeCompatibility(image);
+
         if (image.length == 0) { return new byte[0]; }
         boolean[] imageLSB = new boolean[image.length * image[0].length];
         int index = 0;
