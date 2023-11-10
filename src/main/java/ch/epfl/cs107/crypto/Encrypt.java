@@ -1,6 +1,7 @@
 package ch.epfl.cs107.crypto;
 
 import ch.epfl.cs107.Helper;
+import ch.epfl.cs107.utils.Bit;
 
 import java.util.Random;
 
@@ -60,7 +61,8 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] vigenere(byte[] plainText, byte[] keyword) {
-        assert (keyword != null)&&(plainText != null) : "The keyword or the text is empty";
+        assert (keyword != null)&&(plainText != null) : "The keyword or the text is null";
+        assert Bit.emptyArrayByte(keyword) : "keyword is empty";
         byte[] cyphertext = new byte[plainText.length];
         for (int i = 0 ; i< cyphertext.length ; i++){
             cyphertext[i] = (byte) (plainText[i]+keyword[i% keyword.length]);
@@ -80,12 +82,14 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] cbc(byte[] plainText, byte[] iv) {
+        assert (plainText!=null)&&(iv!=null) : "iv or text is null";
+        assert Bit.emptyArrayByte(iv) : "iv is empty";
         byte[] key = new byte[iv.length];
-        System.arraycopy(iv,0,key,0,8);
+        System.arraycopy(iv,0,key,0,iv.length);
         byte[] cipher = new byte[plainText.length];
         for (int i = 0 ; i<plainText.length ; i++){
             cipher[i] = (byte) (plainText[i]^key[i% key.length]);
-            key[i] = (byte) (plainText[i]^key[i% key.length]);
+            key[i% key.length] = cipher[i];
         }
         return cipher;
         //return Helper.fail("NOT IMPLEMENTED");

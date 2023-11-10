@@ -162,4 +162,13 @@ public final class Bit {
         }
         return value;
     }
+
+    public static boolean emptyArrayByte(byte[] array) {
+        for (byte by : array){
+            if (by!=0){
+                return true;
+            }
+        }
+        return false;
+    }
 }
