@@ -154,11 +154,9 @@ public final class Image {
     }
 
     public static int[][] toGray(int[][] image){
-        assert nullImage(image) : "Image null.";
-        assert nullRow(image) : "Row containing null";
-        if (image.length == 0) {
-            return new int[0][0];
-        }
+        assert nullImage(image);
+        assert nullRow(image);
+        if (image.length == 0) { return new int[0][0]; }
         int[][] gray = new int[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
             for (int j = 0; j < image[i].length; ++j) {
