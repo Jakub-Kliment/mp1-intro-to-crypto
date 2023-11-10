@@ -69,7 +69,7 @@ public final class ImageSteganography {
         assert nullRow(cover) && nullRow(load);
         assert shapeCompatibility(cover) && shapeCompatibility(load);
         assert emptyImage(cover) && emptyImage(load);
-        assert cover.length >= load.length;
+        assert cover.length * cover[0].length >= load.length * load[0].length;
 
         int[][] newImage = new int[cover.length][cover[0].length];
         int index = 0;
