@@ -46,7 +46,6 @@ public final class Image {
         color = color << 8;
         color += Byte.toUnsignedInt(blue);
         return color;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -57,7 +56,6 @@ public final class Image {
      */
     public static byte alpha(int pixel){
         return (byte) (pixel >> 24);
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -68,7 +66,6 @@ public final class Image {
      */
     public static byte red(int pixel){
         return (byte) ((pixel >> 16)&(0b11111111));
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -79,7 +76,6 @@ public final class Image {
      */
     public static byte green(int pixel){
         return (byte) ((pixel >> 8)&(0b11111111));
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -90,7 +86,6 @@ public final class Image {
      */
     public static byte blue(int pixel){
         return (byte) ((pixel)&(0b11111111));
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -104,7 +99,6 @@ public final class Image {
         int greenUnsigned = Byte.toUnsignedInt(green(pixel));
         int blueUnsigned = Byte.toUnsignedInt(blue(pixel));
         return ((redUnsigned+greenUnsigned+blueUnsigned)/3);
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -117,7 +111,6 @@ public final class Image {
     public static boolean binary(int gray, int threshold){
         assert gray <= 255 && gray >= 0 : "Gray value not valid";
         return gray >= threshold;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -130,14 +123,32 @@ public final class Image {
      * @param image image in ARGB format
      * @return the gray scale version of the image
      */
+    public static boolean nullRow(int[][] image) {
+        for (int[] row : image) {
+            if (row == null) { return false; }
+        }
+        return true;
+    }
+    public static boolean nullRow(boolean[][] image) {
+        for (boolean[] row : image) {
+            if (row == null) { return false; }
+        }
+        return true;
+    }
+    public static boolean nullImage(int[][] image) {
+        return image != null;
+    }
+    public static boolean nullImage(boolean[][] image) {
+        return image != null;
+    }
     public static int[][] toGray(int[][] image){
         assert image != null : "Image null.";
+        assert nullRow(image) : "Row containing null";
         if (image.length == 0) {
             return new int[0][0];
         }
         int[][] gray = new int[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
-            assert image[i] != null : "Image representation contains null.";
             for (int j = 0; j < image[i].length; ++j) {
                 gray[i][j] = gray(image[i][j]);
             }
@@ -153,13 +164,13 @@ public final class Image {
      * @return binary representation of the image
      */
     public static boolean[][] toBinary(int[][] image, int threshold){
-        assert image != null : "Image null";
+        assert nullImage(image) : "Image null";
+        assert nullRow(image) : "Row containing null";
         if (image.length == 0) {
             return new boolean[0][0];
         }
         boolean[][] grayToBinary = new boolean[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
-            assert image[i] != null : "Image representation contains null.";
             for (int j = 0; j < image[i].length; ++j) {
                 grayToBinary[i][j] = binary(image[i][j], threshold);
             }
@@ -174,19 +185,18 @@ public final class Image {
      * @return <b>gray ARGB</b> representation
      */
     public static int[][] fromGray(int[][] image){
-        assert image != null : "Image null";
+        assert nullImage(image) : "Image null";
+        assert nullRow(image) : "Row containing null";
         if (image.length == 0) {
             return new int[0][0];
         }
         int[][] imageARGB = new int[image.length][image[0].length];
         for(int i = 0 ; i < image.length ; i++){
-            assert image[i] != null : "Image representation contains null.";
             for(int j = 0 ; j<image[i].length ; j++){
                 imageARGB[i][j] = argb((byte) 255,(byte) image[i][j],(byte) image[i][j],(byte) image[i][j]);
             }
         }
         return imageARGB;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
@@ -196,23 +206,22 @@ public final class Image {
      * @return <b>black and white ARGB</b> representation
      */
     public static int[][] fromBinary(boolean[][] image){
-        assert image != null : "Image null";
+        assert nullImage(image) : "Image null";
+        assert nullRow(image) : "Row containing null";
         if (image.length == 0) {
             return new int[0][0];
         }
         int[][] imageGrey = new int[image.length][image[0].length];
-        for (int i = 0 ; i < image.length ; i++){
-            assert image[i] != null : "Image representation contains null.";
+        for (int i = 0 ; i < image.length ; i++) {
             for (int j = 0 ; j < image[i].length ; j++){
                 if (image[i][j]){
-                    imageGrey[i][j]=0xFFFFFFFF;
+                    imageGrey[i][j] = 0xFFFFFFFF;
                 } else {
-                    imageGrey[i][j]=0xFF000000;
+                    imageGrey[i][j] = 0xFF000000;
                 }
             }
         }
         return imageGrey;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
 }
