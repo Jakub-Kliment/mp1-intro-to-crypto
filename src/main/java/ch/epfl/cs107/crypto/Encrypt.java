@@ -40,6 +40,9 @@ public final class Encrypt {
      */
     public static byte[] caesar(byte[] plainText, byte key) {
         assert emptyArrayByte(plainText);
+        if (plainText.length == 0) {
+            return new byte[0];
+        }
         byte[] cypherText = new byte[plainText.length];
         for (int i = 0 ; i < cypherText.length; i++) {
             cypherText[i] = (byte)(plainText[i] + key);
@@ -62,12 +65,15 @@ public final class Encrypt {
     public static byte[] vigenere(byte[] plainText, byte[] keyword) {
         assert nullArray(plainText) && nullArray(keyword);
         assert emptyArrayByte(keyword);
-
-        byte[] cyphertext = new byte[plainText.length];
-        for (int i = 0 ; i < cyphertext.length; i++){
-            cyphertext[i] = (byte)(plainText[i] + keyword[i % keyword.length]);
+        if (plainText.length == 0) {
+            return new byte[0];
         }
-        return cyphertext;
+
+        byte[] ciphertext = new byte[plainText.length];
+        for (int i = 0 ; i < ciphertext.length; i++){
+            ciphertext[i] = (byte)(plainText[i] + keyword[i % keyword.length]);
+        }
+        return ciphertext;
     }
 
     // ============================================================================================
@@ -83,6 +89,9 @@ public final class Encrypt {
     public static byte[] cbc(byte[] plainText, byte[] iv) {
         assert nullArray(plainText) && nullArray(iv);
         assert emptyArrayByte(iv);
+        if (plainText.length == 0) {
+            return new byte[0];
+        }
 
         byte[] key = new byte[iv.length];
         System.arraycopy(iv, 0, key, 0, iv.length);
@@ -107,6 +116,10 @@ public final class Encrypt {
      */
     public static byte[] xor(byte[] plainText, byte key) {
         assert nullArray(plainText);
+        if (plainText.length == 0) {
+            return new byte[0];
+        }
+
         byte[] cypher = new byte[plainText.length];
         for (int i = 0 ; i < plainText.length; i++) {
             cypher[i] = (byte)(plainText[i] ^ key);
@@ -128,6 +141,9 @@ public final class Encrypt {
     public static byte[] oneTimePad(byte[] plainText, byte[] pad) {
         assert nullArray(plainText) && nullArray(pad);
         assert pad.length == plainText.length;
+        if (plainText.length == 0) {
+            return new byte[0];
+        }
 
         byte[] cypher = new byte[plainText.length];
         for (int i = 0 ; i < plainText.length; i++){
@@ -143,14 +159,14 @@ public final class Encrypt {
      * @param result Array containing the result after the execution
      */
     public static void oneTimePad(byte[] plainText, byte[] pad, byte[] result) {
-        Random r = new Random();
-        assert (plainText != null)&&(pad != null) : "The text or the pad is empty";
+        Random rand = new Random();
+        assert (plainText != null)&&(pad != null);
         assert plainText.length == pad.length;
-        for (int i = 0 ; i<plainText.length ; i++){
-            pad[i] = (byte) r.nextInt(256);
-            result[i] = (byte) (plainText[i]^pad[i]);
+
+        for (int i = 0 ; i < plainText.length ; i++){
+            pad[i] = (byte)rand.nextInt(256);
+            result[i] = (byte)(plainText[i] ^ pad[i]);
         }
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
 }
