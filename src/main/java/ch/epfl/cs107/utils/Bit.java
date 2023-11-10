@@ -81,8 +81,8 @@ public final class Bit {
      * @return <code>true</code> if the bit is '1' and <code>false</code> otherwise
      */
     public static boolean getXthBit(int value, int pos) {
-        assert (pos >= 0) && (pos < 32) : "Bit position need to be under 32";
-        int solution = 0;
+        assert (pos >= 0) && (pos < 32);
+        int solution;
         if (pos == 31) {
             solution = value & Integer.MIN_VALUE;
         } else {
