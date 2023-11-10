@@ -60,11 +60,10 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] vigenere(byte[] plainText, byte[] keyword) {
-        assert keyword != null : "The keyword is empty";
-        assert plainText != null : "The text is empty";
+        assert (keyword != null)&&(plainText != null) : "The keyword or the text is empty";
         byte[] cyphertext = new byte[plainText.length];
         for (int i = 0 ; i< cyphertext.length ; i++){
-            cyphertext[i] = (byte) (plainText[i]+keyword[i]);
+            cyphertext[i] = (byte) (plainText[i]+keyword[i% keyword.length]);
         }
         return cyphertext;
         //return Helper.fail("NOT IMPLEMENTED");
