@@ -62,16 +62,15 @@ public final class Bit {
      * @param m <code>true</code> to embed 1, <code>false</code> to embed 0
      * @return embedded value
      */
-    public static int embedInLSB(int value, boolean m){
-        if (m&&!getLSB(value)||(!m&&getLSB(value))){
-            if (m){
-                value+=1;
-            } else{
-                value-=1;
+    public static int embedInLSB(int value, boolean m) {
+        if (m && !getLSB(value) || (!m && getLSB(value))) {
+            if (m) {
+                value += 1;
+            } else {
+                value -= 1;
             }
         }
         return value;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
