@@ -74,14 +74,8 @@ public final class Bit {
      */
     public static boolean getXthBit(int value, int pos) {
         assert pos >= 0 && pos < 32;
-        int solution;
-        if (pos == 31) {
-            solution = value & Integer.MIN_VALUE;
-        } else {
-            double compare = Math.pow(2, pos);
-            solution = value & (int) compare;
-        }
-        return solution != 0;
+        int compare = 1 << pos;
+        return (value & compare) != 0;
     }
 
     /**
