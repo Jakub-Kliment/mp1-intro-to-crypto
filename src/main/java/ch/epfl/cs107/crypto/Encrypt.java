@@ -81,11 +81,11 @@ public final class Encrypt {
      */
     public static byte[] cbc(byte[] plainText, byte[] iv) {
         byte[] key = new byte[iv.length];
-        System.arraycopy(iv,0,key,0,8);
+        System.arraycopy(iv,0,key,0,iv.length);
         byte[] cipher = new byte[plainText.length];
         for (int i = 0 ; i<plainText.length ; i++){
             cipher[i] = (byte) (plainText[i]^key[i% key.length]);
-            key[i] = (byte) (plainText[i]^key[i% key.length]);
+            key[i% key.length] = cipher[i];
         }
         return cipher;
         //return Helper.fail("NOT IMPLEMENTED");
