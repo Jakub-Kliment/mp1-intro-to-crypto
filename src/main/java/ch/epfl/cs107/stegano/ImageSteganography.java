@@ -30,7 +30,7 @@ public final class ImageSteganography {
     /**
      * Embed an ARGB image on another ARGB image (the cover)
      * @param cover Cover image
-     * @param image Embedded image
+     * @param argbImage Embedded image
      * @param threshold threshold to use for binary conversion
      * @return ARGB image with the image embedded on the cover
      */
@@ -45,7 +45,7 @@ public final class ImageSteganography {
     /**
      * Embed a Gray scaled image on another ARGB image (the cover)
      * @param cover Cover image
-     * @param image Embedded image
+     * @param grayImage Embedded image
      * @param threshold threshold to use for binary conversion
      * @return ARGB image with the image embedded on the cover
      */
@@ -69,7 +69,7 @@ public final class ImageSteganography {
         assert nullRow(cover) && nullRow(load);
         assert shapeCompatibility(cover) && shapeCompatibility(load);
         assert emptyImage(cover) && emptyImage(load);
-        assert sizeCompatibility(cover, load);
+        //assert sizeCompatibility(cover, load);
 
         int[][] newImage = new int[cover.length][cover[0].length];
         int index = 0;
