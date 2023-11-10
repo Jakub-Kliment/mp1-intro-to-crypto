@@ -80,13 +80,13 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] cbc(byte[] plainText, byte[] iv) {
-        /*int nbBlock = (plainText.length/ iv.length)+1;
         byte[] cipher = new byte[plainText.length];
-        for (int i = 0 ; i<nbBlock ; i++){
-            cipher[i]=;
+        for (int i = 0 ; i<plainText.length ; i++){
+            cipher[i] = (byte) (plainText[i]^iv[i% iv.length]);
+            iv[i] = (byte) (plainText[i]^iv[i% iv.length]);
         }
-        return cipher;*/
-        return Helper.fail("NOT IMPLEMENTED");
+        return cipher;
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
