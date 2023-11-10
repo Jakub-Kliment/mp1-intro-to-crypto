@@ -39,15 +39,14 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] caesar(byte[] plainText, byte key) {
+        assert nullArray(plainText);
         assert emptyArrayByte(plainText);
-        if (plainText.length == 0) {
-            return new byte[0];
+
+        byte[] cipherText = new byte[plainText.length];
+        for (int i = 0 ; i < cipherText.length; i++) {
+            cipherText[i] = (byte)(plainText[i] + key);
         }
-        byte[] cypherText = new byte[plainText.length];
-        for (int i = 0 ; i < cypherText.length; i++) {
-            cypherText[i] = (byte)(plainText[i] + key);
-        }
-        return cypherText;
+        return cipherText;
     }
 
     // ============================================================================================
@@ -65,9 +64,6 @@ public final class Encrypt {
     public static byte[] vigenere(byte[] plainText, byte[] keyword) {
         assert nullArray(plainText) && nullArray(keyword);
         assert emptyArrayByte(keyword);
-        if (plainText.length == 0) {
-            return new byte[0];
-        }
 
         byte[] ciphertext = new byte[plainText.length];
         for (int i = 0 ; i < ciphertext.length; i++){
@@ -89,9 +85,6 @@ public final class Encrypt {
     public static byte[] cbc(byte[] plainText, byte[] iv) {
         assert nullArray(plainText) && nullArray(iv);
         assert emptyArrayByte(iv);
-        if (plainText.length == 0) {
-            return new byte[0];
-        }
 
         byte[] key = new byte[iv.length];
         System.arraycopy(iv, 0, key, 0, iv.length);
@@ -116,15 +109,12 @@ public final class Encrypt {
      */
     public static byte[] xor(byte[] plainText, byte key) {
         assert nullArray(plainText);
-        if (plainText.length == 0) {
-            return new byte[0];
-        }
 
-        byte[] cypher = new byte[plainText.length];
+        byte[] cipher = new byte[plainText.length];
         for (int i = 0 ; i < plainText.length; i++) {
-            cypher[i] = (byte)(plainText[i] ^ key);
+            cipher[i] = (byte)(plainText[i] ^ key);
         }
-        return (cypher);
+        return (cipher);
     }
 
     // ============================================================================================
@@ -141,15 +131,12 @@ public final class Encrypt {
     public static byte[] oneTimePad(byte[] plainText, byte[] pad) {
         assert nullArray(plainText) && nullArray(pad);
         assert pad.length == plainText.length;
-        if (plainText.length == 0) {
-            return new byte[0];
-        }
 
-        byte[] cypher = new byte[plainText.length];
+        byte[] cipher = new byte[plainText.length];
         for (int i = 0 ; i < plainText.length; i++){
-            cypher[i] = (byte)(plainText[i] ^ pad[i]);
+            cipher[i] = (byte)(plainText[i] ^ pad[i]);
         }
-        return (cypher);
+        return (cipher);
     }
 
     /**
@@ -160,7 +147,7 @@ public final class Encrypt {
      */
     public static void oneTimePad(byte[] plainText, byte[] pad, byte[] result) {
         Random rand = new Random();
-        assert (plainText != null)&&(pad != null);
+        assert nullArray(plainText) && nullArray(pad);
         assert plainText.length == pad.length;
 
         for (int i = 0 ; i < plainText.length ; i++){
