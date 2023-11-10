@@ -192,12 +192,10 @@ public final class Image {
      * @param image grayscale image representation
      * @return <b>gray ARGB</b> representation
      */
-    public static int[][] fromGray(int[][] image){
-        assert nullImage(image) : "Image null";
-        assert nullRow(image) : "Row containing null";
-        if (image.length == 0) {
-            return new int[0][0];
-        }
+    public static int[][] fromGray(int[][] image) {
+        assert nullImage(image);
+        assert nullRow(image);
+        if (image.length == 0) { return new int[0][0]; }
         int[][] imageARGB = new int[image.length][image[0].length];
         for(int i = 0 ; i < image.length ; i++){
             for(int j = 0 ; j<image[i].length ; j++){
