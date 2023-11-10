@@ -159,12 +159,12 @@ public final class Bit {
     }
 
     public static boolean emptyArrayByte(byte[] array) {
-        for (byte by : array){
-            if (by!=0){
-                return true;
-            }
+        assert nullArray(array);
+        for (byte by : array) {
+            if (by != 0) { return true; }
         }
         return false;
     }
     public static boolean nullArray(boolean[] array) { return array != null; }
+    public static boolean nullArray(byte[] array) { return array != null; }
 }
