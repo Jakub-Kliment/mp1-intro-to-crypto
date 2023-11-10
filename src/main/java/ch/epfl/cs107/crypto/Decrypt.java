@@ -1,6 +1,7 @@
 package ch.epfl.cs107.crypto;
 
 import ch.epfl.cs107.Helper;
+import ch.epfl.cs107.utils.Bit;
 
 import static ch.epfl.cs107.utils.Text.*;
 import static ch.epfl.cs107.utils.Image.*;
@@ -55,8 +56,7 @@ public final class Decrypt {
      * @return decoded message
      */
     public static byte[] vigenere(byte[] cipher, byte[] keyword) {
-        assert keyword != null : "The keyword is empty";
-        assert cipher != null : "The text is empty";
+        assert (keyword != null)&&(cipher != null)&&(Bit.emptyArrayByte(keyword));
         byte[] plainText = new byte[cipher.length];
         for (int i = 0 ; i< plainText.length ; i++){
             plainText[i] = (byte) (cipher[i]-keyword[i% keyword.length]);
