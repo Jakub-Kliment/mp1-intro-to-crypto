@@ -75,6 +75,9 @@ public final class Decrypt {
      * @return decoded message
      */
     public static byte[] cbc(byte[] cipher, byte[] iv) {
+        assert nullArray(cipher) && nullArray(iv);
+        assert iv.length != 0;
+        if (cipher.length == 0) { return new byte[0]; }
         byte[] key = new byte[cipher.length];
         System.arraycopy(iv,0,key,0,iv.length);
         System.arraycopy(cipher,0,key,iv.length,key.length-iv.length);
