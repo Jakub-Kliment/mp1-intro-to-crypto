@@ -93,7 +93,9 @@ public final class ImageSteganography {
      */
     public static boolean[][] revealBW(int[][] image) {
         assert image != null : "Image null";
-        assert image.length != image[0].length: "Size not compatible";
+        for (int i = 1; i < image.length; ++i) {
+            assert image[i - 1].length != image[i].length: "Not rectangle";
+        }
         if (image.length == 0) { return new boolean[0][0]; }
         boolean[][] imageLSB = new boolean[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
