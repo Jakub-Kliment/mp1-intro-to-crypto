@@ -64,13 +64,13 @@ public final class ImageSteganography {
      * @return ARGB image with the image embedded on the cover
      */
     public static int[][] embedBW(int[][] cover, boolean[][] load){
-        assert cover != null && load != null : "Image null";
-        assert cover.length >= load.length : "Cover bigger than load";
-        if (cover.length == 0) { return new int[0][0]; }
+        assert cover != null || load != null : "Image null";
+        assert cover.length != 0: "Empty image";
+        assert  cover[0].length == load[0].length : "Image size not compatible";
         int[][] newImage = new int[cover.length][cover[0].length];
         int index = 0;
         for (int i = 0; i < load.length; ++i) {
-            assert cover[i] != null : "Image containing null pointer.";
+            assert cover[i] != null || load[i] != null: "Image containing null pointer.";
             for (int j = 0; j < load[i].length; ++j) {
                 newImage[i][j] = embedInLSB(cover[i][j], load[i][j]);
             }
@@ -93,6 +93,7 @@ public final class ImageSteganography {
      */
     public static boolean[][] revealBW(int[][] image) {
         assert image != null : "Image null";
+        assert image.length != image[0].length: "Size not compatible";
         if (image.length == 0) { return new boolean[0][0]; }
         boolean[][] imageLSB = new boolean[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
