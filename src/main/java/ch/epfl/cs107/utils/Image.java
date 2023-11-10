@@ -100,10 +100,11 @@ public final class Image {
      * @param threshold when to consider a pixel white
      * @return binary representation of a pixel
      */
-    public static boolean binary(int gray, int threshold){
-        assert gray <= 255 && gray >= 0 : "Gray value not valid";
+    public static boolean binary(int gray, int threshold) {
+        assert validThreshold(gray);
         return gray >= threshold;
     }
+    public static boolean validThreshold(int threshold) { return threshold <= 255 && threshold >= 0; }
 
     // ============================================================================================
     // =================================== IMAGE MANIPULATION =====================================
