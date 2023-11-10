@@ -2,7 +2,6 @@ package ch.epfl.cs107.crypto;
 
 import ch.epfl.cs107.Helper;
 import ch.epfl.cs107.utils.Bit;
-
 import static ch.epfl.cs107.utils.Text.*;
 import static ch.epfl.cs107.utils.Image.*;
 import static ch.epfl.cs107.utils.Bit.*;
@@ -76,7 +75,15 @@ public final class Decrypt {
      * @return decoded message
      */
     public static byte[] cbc(byte[] cipher, byte[] iv) {
-        return Encrypt.cbc(cipher, iv);
+        byte[] key = new byte[cipher.length];
+        System.arraycopy(iv,0,key,0,iv.length);
+        System.arraycopy(cipher,0,key,iv.length,key.length-iv.length);
+        byte[] plainText = new byte[cipher.length];
+        for (int i = 0 ; i< cipher.length ; i++){
+            plainText[i] = (byte) (cipher[i]^key[i]);
+        }
+        return plainText;
+        //return Encrypt.cbc(cipher, iv);
         //return Helper.fail("NOT IMPLEMENTED");
     }
 
