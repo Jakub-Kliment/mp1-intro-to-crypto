@@ -80,10 +80,12 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] cbc(byte[] plainText, byte[] iv) {
+        byte[] key = new byte[iv.length];
+        System.arraycopy(iv,0,key,0,8);
         byte[] cipher = new byte[plainText.length];
         for (int i = 0 ; i<plainText.length ; i++){
-            cipher[i] = (byte) (plainText[i]^iv[i% iv.length]);
-            iv[i] = (byte) (plainText[i]^iv[i% iv.length]);
+            cipher[i] = (byte) (plainText[i]^key[i% key.length]);
+            key[i] = (byte) (plainText[i]^key[i% key.length]);
         }
         return cipher;
         //return Helper.fail("NOT IMPLEMENTED");
