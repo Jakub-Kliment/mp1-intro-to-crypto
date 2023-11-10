@@ -173,12 +173,10 @@ public final class Image {
      * @param threshold Threshold to consider
      * @return binary representation of the image
      */
-    public static boolean[][] toBinary(int[][] image, int threshold){
-        assert nullImage(image) : "Image null";
-        assert nullRow(image) : "Row containing null";
-        if (image.length == 0) {
-            return new boolean[0][0];
-        }
+    public static boolean[][] toBinary(int[][] image, int threshold) {
+        assert nullImage(image);
+        assert nullRow(image);
+        if (image.length == 0) { return new boolean[0][0]; }
         boolean[][] grayToBinary = new boolean[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
             for (int j = 0; j < image[i].length; ++j) {
