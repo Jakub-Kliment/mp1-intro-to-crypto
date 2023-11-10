@@ -84,7 +84,9 @@ public final class Bit {
      * @param value value to extract from
      * @return <code>true</code> if the bit is '1' and <code>false</code> otherwise
      */
-    public static boolean getLSB(int value) { return value % 2 != 0; }
+    public static boolean getLSB(int value) {
+        return value % 2 != 0;
+    }
 
     // ============================================================================================
     // ==================================== BYTE MANIPULATION =====================================
@@ -108,7 +110,7 @@ public final class Bit {
      */
     public static boolean[] toBitArray(byte value) {
         boolean[] bitArray = new boolean[Byte.SIZE];
-        for(int i = 0 ; i < Byte.SIZE ; i++) {
+        for(int i = 0 ; i < Byte.SIZE ; ++i) {
             bitArray[7 - i] = getXthBit(value, i);
         }
         return bitArray;
@@ -133,10 +135,10 @@ public final class Bit {
     public static byte toByte(boolean[] bitArray) {
         assert nullArray(bitArray);
         assert bitArray.length == Byte.SIZE;
+
         byte value = 0;
-        int length = bitArray.length;
-        for (int i = 0; i < length; ++i) {
-            if (bitArray[length - i - 1]) {
+        for (int i = 0; i < bitArray.length; ++i) {
+            if (bitArray[bitArray.length - i - 1]) {
                 byte tmp = (byte)Math.pow(2,i);
                 value += tmp;
             }
@@ -151,6 +153,10 @@ public final class Bit {
         }
         return false;
     }
-    public static boolean nullArray(boolean[] array) { return array != null; }
-    public static boolean nullArray(byte[] array) { return array != null; }
+    public static boolean nullArray(boolean[] array) {
+        return array != null;
+    }
+    public static boolean nullArray(byte[] array) {
+        return array != null;
+    }
 }

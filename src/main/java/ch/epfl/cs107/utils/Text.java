@@ -74,8 +74,10 @@ public final class Text {
         assert nullArray(bitArray);
         boolean[] bitArrayRight = new boolean[(bitArray.length / Byte.SIZE) * 8];
         System.arraycopy(bitArray,0,bitArrayRight,0,(bitArray.length / Byte.SIZE) * 8);
+
         boolean[] oneByte = new boolean[Byte.SIZE];
         byte[] strBytes = new byte[bitArrayRight.length / 8];
+
         for (int i = 0; i < bitArrayRight.length; i += 8) {
             System.arraycopy(bitArrayRight, i, oneByte, 0, 8);
             strBytes[i / 8] = toByte(oneByte);
