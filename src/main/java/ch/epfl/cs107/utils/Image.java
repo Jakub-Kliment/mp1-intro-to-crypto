@@ -86,11 +86,11 @@ public final class Image {
      * @param pixel packed value of the pixel
      * @return gray scaling of the given pixel
      */
-    public static int gray(int pixel){
+    public static int gray(int pixel) {
         int redUnsigned = Byte.toUnsignedInt(red(pixel));
         int greenUnsigned = Byte.toUnsignedInt(green(pixel));
         int blueUnsigned = Byte.toUnsignedInt(blue(pixel));
-        return ((redUnsigned+greenUnsigned+blueUnsigned)/3);
+        return ((redUnsigned + greenUnsigned + blueUnsigned) / 3);
     }
 
     /**
