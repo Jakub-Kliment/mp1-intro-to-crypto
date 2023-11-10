@@ -54,9 +54,7 @@ public final class Image {
      * @param pixel packed value of the pixel
      * @return the alpha component of the pixel
      */
-    public static byte alpha(int pixel){
-        return (byte) (pixel >> 24);
-    }
+    public static byte alpha(int pixel) { return (byte) (pixel >> 24); }
 
     /**
      * Extract the red component of a given pixel
@@ -72,9 +70,7 @@ public final class Image {
      * @param pixel packed value of the pixel
      * @return the green component of the pixel
      */
-    public static byte green(int pixel){
-        return (byte) ((pixel >> 8)&(0b11111111));
-    }
+    public static byte green(int pixel) { return (byte) ((pixel >> 8) & 0b11111111); }
 
     /**
      * Extract the blue component of a given pixel
@@ -82,9 +78,7 @@ public final class Image {
      * @param pixel packed value of the pixel
      * @return the blue component of the pixel
      */
-    public static byte blue(int pixel){
-        return (byte) ((pixel)&(0b11111111));
-    }
+    public static byte blue(int pixel) { return (byte) (pixel & 0b11111111); }
 
     /**
      * Compute the gray scale of the given pixel
