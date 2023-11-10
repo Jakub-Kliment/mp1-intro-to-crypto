@@ -59,7 +59,7 @@ public final class Decrypt {
         assert cipher != null : "The text is empty";
         byte[] plainText = new byte[cipher.length];
         for (int i = 0 ; i< plainText.length ; i++){
-            plainText[i] = (byte) (cipher[i]-keyword[i]);
+            plainText[i] = (byte) (cipher[i]-keyword[i% keyword.length]);
         }
         return plainText;
         //return Helper.fail("NOT IMPLEMENTED");
@@ -76,7 +76,8 @@ public final class Decrypt {
      * @return decoded message
      */
     public static byte[] cbc(byte[] cipher, byte[] iv) {
-        return Helper.fail("NOT IMPLEMENTED");
+        return Encrypt.cbc(cipher, iv);
+        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
