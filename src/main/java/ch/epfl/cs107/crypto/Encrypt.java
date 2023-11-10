@@ -60,11 +60,10 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] vigenere(byte[] plainText, byte[] keyword) {
-        assert keyword != null : "The keyword is empty";
-        assert plainText != null : "The text is empty";
+        assert (keyword != null)&&(plainText != null) : "The keyword or the text is empty";
         byte[] cyphertext = new byte[plainText.length];
         for (int i = 0 ; i< cyphertext.length ; i++){
-            cyphertext[i] = (byte) (plainText[i]+keyword[i]);
+            cyphertext[i] = (byte) (plainText[i]+keyword[i% keyword.length]);
         }
         return cyphertext;
         //return Helper.fail("NOT IMPLEMENTED");
@@ -81,6 +80,12 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] cbc(byte[] plainText, byte[] iv) {
+        /*int nbBlock = (plainText.length/ iv.length)+1;
+        byte[] cipher = new byte[plainText.length];
+        for (int i = 0 ; i<nbBlock ; i++){
+            cipher[i]=;
+        }
+        return cipher;*/
         return Helper.fail("NOT IMPLEMENTED");
     }
 
@@ -116,7 +121,7 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] oneTimePad(byte[] plainText, byte[] pad) {
-        assert plainText != null : "The text is empty";
+        assert (plainText != null)&&(pad != null) : "The text or the pad is empty";
         assert pad.length == plainText.length : "The text and the mask need to be the same size";
         byte[] cypher = new byte[plainText.length];
         for (int i = 0 ; i<plainText.length ; i++){
@@ -134,9 +139,8 @@ public final class Encrypt {
      */
     public static void oneTimePad(byte[] plainText, byte[] pad, byte[] result) {
         Random r = new Random();
-        assert plainText != null : "The text is empty";
-        assert plainText.length == result.length;
-        assert pad.length == result.length;
+        assert (plainText != null)&&(pad != null) : "The text or the pad is empty";
+        assert plainText.length == pad.length;
         for (int i = 0 ; i<plainText.length ; i++){
             pad[i] = (byte) r.nextInt(256);
             result[i] = (byte) (plainText[i]^pad[i]);
