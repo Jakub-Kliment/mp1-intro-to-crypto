@@ -120,13 +120,12 @@ public final class Bit {
      * @param value byte representation of the value
      * @return bit array representation of the value
      */
-    public static boolean[] toBitArray(byte value){
-        boolean[] bitArray = new boolean[8];
-        for(int i = 0 ; i<8 ; i++){
-            bitArray[7-i]=getXthBit(value,i);
+    public static boolean[] toBitArray(byte value) {
+        boolean[] bitArray = new boolean[Byte.SIZE];
+        for(int i = 0 ; i < Byte.SIZE ; i++) {
+            bitArray[7 - i] = getXthBit(value, i);
         }
         return bitArray;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
