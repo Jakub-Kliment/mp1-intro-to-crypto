@@ -153,9 +153,6 @@ public final class Image {
         }
         return true;
     }
-    public static boolean sizeCompatibility(int[][] cover, boolean[][] load) {
-        return cover.length == load.length && cover[0].length == load[0].length;
-    }
     public static boolean emptyImage(int[][] image) {
         return image.length != 0;
     }
