@@ -36,7 +36,7 @@ public final class Bit {
      * @return embedded value
      */
     public static int embedInXthBit(int value, boolean m, int pos) {
-        assert (pos>=0)&&(pos<32) : "Bit position need to be under 32";
+        assert (pos >= 0) && (pos < 32);
         double compare = 0.0;
         if (m) {
             if (pos == 31) {
