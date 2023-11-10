@@ -98,10 +98,7 @@ public final class Bit {
      * @param value value to extract from
      * @return <code>true</code> if the bit is '1' and <code>false</code> otherwise
      */
-    public static boolean getLSB(int value) {
-        return value%2!=0;
-        //return Helper.fail("NOT IMPLEMENTED");
-    }
+    public static boolean getLSB(int value) { return value % 2 != 0; }
 
     // ============================================================================================
     // ==================================== BYTE MANIPULATION =====================================
