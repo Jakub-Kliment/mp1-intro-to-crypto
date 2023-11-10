@@ -36,7 +36,7 @@ public final class Image {
      * @param blue blue component of the pixel
      * @return packed value of the pixel
      */
-    public static int argb(byte alpha, byte red, byte green, byte blue){
+    public static int argb(byte alpha, byte red, byte green, byte blue) {
         int color = 0;
         color += Byte.toUnsignedInt(alpha);
         color = color << 8;
@@ -64,9 +64,7 @@ public final class Image {
      * @param pixel packed value of the pixel
      * @return the red component of the pixel
      */
-    public static byte red(int pixel){
-        return (byte) ((pixel >> 16)&(0b11111111));
-    }
+    public static byte red(int pixel) { return (byte) ((pixel >> 16) & 0b11111111); }
 
     /**
      * Extract the green component of a given pixel
