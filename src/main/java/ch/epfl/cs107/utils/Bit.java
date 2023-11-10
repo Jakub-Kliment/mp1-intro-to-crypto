@@ -37,21 +37,13 @@ public final class Bit {
      */
     public static int embedInXthBit(int value, boolean m, int pos) {
         assert (pos >= 0) && (pos < 32);
-        double compare;
+        int compare;
         if (m) {
-            if (pos == 31) {
-                return value | Integer.MIN_VALUE;
-            } else {
-                compare = Math.pow(2, pos);
-                return value | (int) compare;
-            }
+            compare = 1 << pos;
+            return value | compare;
         } else {
-            if (pos == 31) {
-                return value & Integer.MAX_VALUE;
-            } else {
-                compare = ~((int) Math.pow(2, pos));
-                return value & (int) compare;
-            }
+            compare = ~(1 << pos);
+            return value & compare;
         }
     }
 
