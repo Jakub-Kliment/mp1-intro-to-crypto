@@ -37,7 +37,7 @@ public final class Bit {
      */
     public static int embedInXthBit(int value, boolean m, int pos) {
         assert (pos >= 0) && (pos < 32);
-        double compare = 0.0;
+        double compare;
         if (m) {
             if (pos == 31) {
                 return value | Integer.MIN_VALUE;
