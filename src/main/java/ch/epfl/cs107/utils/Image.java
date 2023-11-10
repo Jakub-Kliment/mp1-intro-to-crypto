@@ -141,8 +141,20 @@ public final class Image {
     public static boolean nullImage(boolean[][] image) {
         return image != null;
     }
+    public static boolean sizeCompatibility(int[][] image) {
+        for (int i = 1; i < image.length; ++i) {
+            if (image[i - 1].length != image[i].length) { return false; }
+        }
+        return true;
+    }
+    public static boolean sizeCompatibility(boolean[][] image) {
+        for (int i = 1; i < image.length; ++i) {
+            if (image[i - 1].length != image[i].length) { return false; }
+        }
+        return true;
+    }
     public static int[][] toGray(int[][] image){
-        assert image != null : "Image null.";
+        assert nullImage(image) : "Image null.";
         assert nullRow(image) : "Row containing null";
         if (image.length == 0) {
             return new int[0][0];
