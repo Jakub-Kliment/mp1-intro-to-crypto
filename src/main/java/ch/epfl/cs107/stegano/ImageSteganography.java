@@ -35,7 +35,7 @@ public final class ImageSteganography {
      * @return ARGB image with the image embedded on the cover
      */
     public static int[][] embedARGB(int[][] cover, int[][] argbImage, int threshold){
-        assert cover != null && argbImage != null : "Provide image";
+        assert nullImage(cover) && nullImage(argbImage) : "Provide image";
         assert threshold >= 0 && threshold <= 255 : "Treshold not valid";
         assert cover.length >= argbImage.length : "Cover image must be bigger than argbImage";
         if (cover.length == 0) { return new int[0][0]; }
@@ -50,7 +50,8 @@ public final class ImageSteganography {
      * @return ARGB image with the image embedded on the cover
      */
     public static int[][] embedGray(int[][] cover, int[][] grayImage, int threshold){
-        assert cover != null && grayImage != null : "Provide image";
+        assert nullImage(cover) && nullImage(grayImage) : "Provide image";
+        assert nullRow(cover) && nullRow(grayImage);
         assert threshold >= 0 && threshold <= 255 : "Treshold not valid";
         assert cover.length >= grayImage.length : "Cover image must be bigger that greyImage";
         if (cover.length == 0) { return new int[0][0]; }
@@ -64,13 +65,12 @@ public final class ImageSteganography {
      * @return ARGB image with the image embedded on the cover
      */
     public static int[][] embedBW(int[][] cover, boolean[][] load){
-        assert cover != null || load != null : "Image null";
-        assert cover.length != 0: "Empty image";
-        assert  cover[0].length == load[0].length : "Image size not compatible";
+        assert nullImage(cover) && nullImage(load): "Image null";
+        assert nullRow(cover) && nullRow(load);
+        assert sizeCompatibility(cover) && sizeCompatibility(load);
         int[][] newImage = new int[cover.length][cover[0].length];
         int index = 0;
         for (int i = 0; i < load.length; ++i) {
-            assert cover[i] != null || load[i] != null: "Image containing null pointer.";
             for (int j = 0; j < load[i].length; ++j) {
                 newImage[i][j] = embedInLSB(cover[i][j], load[i][j]);
             }
@@ -92,14 +92,11 @@ public final class ImageSteganography {
      * @return binary representation of the hidden image
      */
     public static boolean[][] revealBW(int[][] image) {
-        assert image != null : "Image null";
-        for (int i = 1; i < image.length; ++i) {
-            assert image[i - 1].length != image[i].length: "Not rectangle";
-        }
-        if (image.length == 0) { return new boolean[0][0]; }
+        assert nullImage(image): "Image null";
+        assert nullRow(image);
+        assert sizeCompatibility(image);
         boolean[][] imageLSB = new boolean[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
-            assert image[i] != null : "Image containing null";
             for (int j = 0; j < image[0].length; ++j) {
                 imageLSB[i][j] = getLSB(image[i][j]);
             }

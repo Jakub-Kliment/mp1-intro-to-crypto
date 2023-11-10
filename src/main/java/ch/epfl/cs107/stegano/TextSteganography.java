@@ -34,15 +34,13 @@ public class TextSteganography {
      * @return ARGB image with the message embedded
      */
     public static int[][] embedBitArray(int[][] cover, boolean[] message) {
-        assert cover != null : "Image null";
-        for (int i = 1; i < cover.length; ++i) {
-            assert cover[i - 1].length == cover[i].length: "Not rectangle";
-        }
+        assert nullImage(cover);
+        assert nullRow(cover);
+        assert message != null;
         if (cover.length == 0) { return new int[0][0]; }
         int [][] newImage = new int[cover.length][cover[0].length];
         int index = 0;
         for (int i = 0; i < cover.length; ++i) {
-            assert cover[i] != null : "Image containing null";
             for (int j = 0; j < cover[i].length; ++j) {
                 newImage[i][j] = cover[i][j];
                 if (index < message.length) {
@@ -60,15 +58,12 @@ public class TextSteganography {
      * @return extracted message
      */
     public static boolean[] revealBitArray(int[][] image) {
-        assert image != null : "Image null";
-        for (int i = 1; i < image.length; ++i) {
-            assert image[i - 1].length == image[i].length: "Not rectangle";
-        }
+        assert nullImage(image);
+        assert nullRow(image);
         if (image.length == 0) { return new boolean[0]; }
         boolean[] boolLSB = new boolean[image.length * image[0].length];
         int index = 0;
         for (int[] column : image) {
-            assert column != null : "Image containing null";
             for (int row : column) {
                 boolLSB[index] = getLSB(row);
                 index++;
@@ -90,10 +85,8 @@ public class TextSteganography {
      * @return ARGB image with the message embedded
      */
     public static int[][] embedText(int[][] cover, byte[] message) {
-        assert cover != null && message != null : "Null pointer";
-        for (int i = 1; i < cover.length; ++i) {
-            assert cover[i - 1].length == cover[i].length: "Not rectangle";
-        }
+        assert nullImage(cover) && message != null;
+        assert nullRow(cover);
         if (cover.length == 0) { return new int[0][0]; }
         boolean[][] boolMessage = new boolean[message.length][8];
         boolean[] newLSB = new boolean[message.length * 8];
@@ -115,16 +108,12 @@ public class TextSteganography {
      * @return extracted message
      */
     public static byte[] revealText(int[][] image) {
-        assert image != null : "Null pointer";
-        for (int i = 1; i < image.length; ++i) {
-            assert image[i - 1].length == image[i].length: "Not rectangle";
-        }
-        assert image.length == 0: "Image null";
-        assert image[0] != null : "Null pointer";
+        assert nullImage(image);
+        assert nullRow(image);
+        if (image.length == 0) { return new byte[0]; }
         boolean[] imageLSB = new boolean[image.length * image[0].length];
         int index = 0;
         for (int[] column : image) {
-            assert column != null : "Null pointer";
             for (int row : column) {
                 imageLSB[index] = getLSB(row);
                 index++;
