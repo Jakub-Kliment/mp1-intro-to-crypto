@@ -35,13 +35,12 @@ public final class Decrypt {
      * @return decoded message
      */
     public static byte[] caesar(byte[] cipher, byte key) {
-        assert cipher != null : "The cipher is empty";
+        assert nullArray(cipher);
         byte[] plainText = new byte[cipher.length];
-        for(int i = 0 ; i<plainText.length ; i++){
-            plainText[i] = (byte) (cipher[i]-key);
+        for(int i = 0 ; i < plainText.length; i++) {
+            plainText[i] = (byte)(cipher[i] - key);
         }
         return plainText;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -55,13 +54,14 @@ public final class Decrypt {
      * @return decoded message
      */
     public static byte[] vigenere(byte[] cipher, byte[] keyword) {
-        assert (keyword != null)&&(cipher != null)&&(Bit.emptyArrayByte(keyword));
+        assert nullArray(cipher) && nullArray(keyword);
+        assert emptyArrayByte(keyword);
+
         byte[] plainText = new byte[cipher.length];
-        for (int i = 0 ; i< plainText.length ; i++){
-            plainText[i] = (byte) (cipher[i]-keyword[i% keyword.length]);
+        for (int i = 0 ; i < plainText.length; i++){
+            plainText[i] = (byte)(cipher[i] - keyword[i % keyword.length]);
         }
         return plainText;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -77,17 +77,19 @@ public final class Decrypt {
     public static byte[] cbc(byte[] cipher, byte[] iv) {
         assert nullArray(cipher) && nullArray(iv);
         assert iv.length != 0;
-        if (cipher.length == 0) { return new byte[0]; }
+
+        if (cipher.length == 0) {
+            return new byte[0];
+        }
         byte[] key = new byte[cipher.length];
-        System.arraycopy(iv,0,key,0,iv.length);
-        System.arraycopy(cipher,0,key,iv.length,key.length-iv.length);
+        System.arraycopy(iv, 0, key, 0, iv.length);
+        System.arraycopy(cipher, 0, key, iv.length, key.length - iv.length);
+
         byte[] plainText = new byte[cipher.length];
-        for (int i = 0 ; i< cipher.length ; i++){
-            plainText[i] = (byte) (cipher[i]^key[i]);
+        for (int i = 0 ; i < cipher.length; i++) {
+            plainText[i] = (byte)(cipher[i] ^ key[i]);
         }
         return plainText;
-        //return Encrypt.cbc(cipher, iv);
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -102,7 +104,6 @@ public final class Decrypt {
      */
     public static byte[] xor(byte[] cipher, byte key) {
         return Encrypt.xor(cipher, key);
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -117,7 +118,6 @@ public final class Decrypt {
      */
     public static byte[] oneTimePad(byte[] cipher, byte[] pad) {
         return Encrypt.oneTimePad(cipher, pad);
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
 }

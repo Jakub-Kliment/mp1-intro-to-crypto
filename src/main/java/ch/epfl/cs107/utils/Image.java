@@ -54,7 +54,9 @@ public final class Image {
      * @param pixel packed value of the pixel
      * @return the alpha component of the pixel
      */
-    public static byte alpha(int pixel) { return (byte) (pixel >> 24); }
+    public static byte alpha(int pixel) {
+        return (byte) (pixel >> 24);
+    }
 
     /**
      * Extract the red component of a given pixel
@@ -62,7 +64,9 @@ public final class Image {
      * @param pixel packed value of the pixel
      * @return the red component of the pixel
      */
-    public static byte red(int pixel) { return (byte) ((pixel >> 16) & 0b11111111); }
+    public static byte red(int pixel) {
+        return (byte)((pixel >> 16) & 0b11111111);
+    }
 
     /**
      * Extract the green component of a given pixel
@@ -70,7 +74,9 @@ public final class Image {
      * @param pixel packed value of the pixel
      * @return the green component of the pixel
      */
-    public static byte green(int pixel) { return (byte) ((pixel >> 8) & 0b11111111); }
+    public static byte green(int pixel) {
+        return (byte)((pixel >> 8) & 0b11111111);
+    }
 
     /**
      * Extract the blue component of a given pixel
@@ -78,7 +84,9 @@ public final class Image {
      * @param pixel packed value of the pixel
      * @return the blue component of the pixel
      */
-    public static byte blue(int pixel) { return (byte) (pixel & 0b11111111); }
+    public static byte blue(int pixel) {
+        return (byte)(pixel & 0b11111111);
+    }
 
     /**
      * Compute the gray scale of the given pixel
@@ -104,7 +112,9 @@ public final class Image {
         assert validThreshold(gray);
         return gray >= threshold;
     }
-    public static boolean validThreshold(int threshold) { return threshold <= 255 && threshold >= 0; }
+    public static boolean validThreshold(int threshold) {
+        return threshold <= 255 && threshold >= 0;
+    }
 
     // ============================================================================================
     // =================================== IMAGE MANIPULATION =====================================
@@ -119,7 +129,10 @@ public final class Image {
     public static int[][] toGray(int[][] image){
         assert nullImage(image);
         assert nullRow(image);
-        if (image.length == 0) { return new int[0][0]; }
+        if (image.length == 0) {
+            return new int[0][0];
+        }
+
         int[][] gray = new int[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
             for (int j = 0; j < image[i].length; ++j) {
@@ -139,7 +152,10 @@ public final class Image {
     public static boolean[][] toBinary(int[][] image, int threshold) {
         assert nullImage(image);
         assert nullRow(image);
-        if (image.length == 0) { return new boolean[0][0]; }
+        if (image.length == 0) {
+            return new boolean[0][0];
+        }
+
         boolean[][] grayToBinary = new boolean[image.length][image[0].length];
         for (int i = 0; i < image.length; ++i) {
             for (int j = 0; j < image[i].length; ++j) {
@@ -158,11 +174,14 @@ public final class Image {
     public static int[][] fromGray(int[][] image) {
         assert nullImage(image);
         assert nullRow(image);
-        if (image.length == 0) { return new int[0][0]; }
+        if (image.length == 0) {
+            return new int[0][0];
+        }
+
         int[][] imageARGB = new int[image.length][image[0].length];
         for(int i = 0 ; i < image.length ; ++i) {
-            for(int j = 0 ; j < image[i].length ; ++j) {
-                imageARGB[i][j] = argb((byte) 255,(byte) image[i][j],(byte) image[i][j],(byte) image[i][j]);
+            for(int j = 0 ; j < image[i].length; ++j) {
+                imageARGB[i][j] = argb((byte)255, (byte)image[i][j], (byte)image[i][j], (byte)image[i][j]);
             }
         }
         return imageARGB;
@@ -177,11 +196,14 @@ public final class Image {
     public static int[][] fromBinary(boolean[][] image){
         assert nullImage(image);
         assert nullRow(image);
-        if (image.length == 0) { return new int[0][0]; }
+        if (image.length == 0) {
+            return new int[0][0];
+        }
+
         int[][] imageGrey = new int[image.length][image[0].length];
         for (int i = 0 ; i < image.length ; ++i) {
-            for (int j = 0 ; j < image[i].length ; ++j){
-                if (image[i][j]){
+            for (int j = 0 ; j < image[i].length; ++j) {
+                if (image[i][j]) {
                     imageGrey[i][j] = 0xFFFFFFFF;
                 } else {
                     imageGrey[i][j] = 0xFF000000;
@@ -227,6 +249,12 @@ public final class Image {
             if (image[i - 1].length != image[i].length) { return false; }
         }
         return true;
+    }
+    public static boolean compareSize(int[][] largerImage, int[][] smallerImage) {
+        return largerImage.length >= smallerImage.length;
+    }
+    public static boolean compareSize(int[][] largerImage, boolean[][] smallerImage) {
+        return largerImage.length >= smallerImage.length;
     }
     public static boolean emptyImage(int[][] image) {
         return image.length != 0;

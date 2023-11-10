@@ -34,11 +34,13 @@ public final class ImageSteganography {
      * @param threshold threshold to use for binary conversion
      * @return ARGB image with the image embedded on the cover
      */
-    public static int[][] embedARGB(int[][] cover, int[][] argbImage, int threshold){
-        assert nullImage(cover) && nullImage(argbImage) : "Provide image";
-        assert threshold >= 0 && threshold <= 255 : "Treshold not valid";
-        assert cover.length >= argbImage.length : "Cover image must be bigger than argbImage";
-        if (cover.length == 0) { return new int[0][0]; }
+    public static int[][] embedARGB(int[][] cover, int[][] argbImage, int threshold) {
+        assert nullImage(cover) && nullImage(argbImage);
+        assert validThreshold(threshold);
+        assert compareSize(cover, argbImage);
+        if (cover.length == 0) {
+            return new int[0][0];
+        }
         return embedBW(cover, toBinary(toGray(argbImage), threshold));
     }
 
@@ -50,11 +52,13 @@ public final class ImageSteganography {
      * @return ARGB image with the image embedded on the cover
      */
     public static int[][] embedGray(int[][] cover, int[][] grayImage, int threshold){
-        assert nullImage(cover) && nullImage(grayImage) : "Provide image";
+        assert nullImage(cover) && nullImage(grayImage);
         assert nullRow(cover) && nullRow(grayImage);
-        assert threshold >= 0 && threshold <= 255 : "Treshold not valid";
-        assert cover.length >= grayImage.length : "Cover image must be bigger that greyImage";
-        if (cover.length == 0) { return new int[0][0]; }
+        assert validThreshold(threshold);
+        assert compareSize(cover, grayImage);
+        if (cover.length == 0) {
+            return new int[0][0];
+        }
         return embedBW(cover, toBinary(grayImage, threshold));
     }
 
@@ -69,7 +73,7 @@ public final class ImageSteganography {
         assert nullRow(cover) && nullRow(load);
         assert shapeCompatibility(cover) && shapeCompatibility(load);
         assert emptyImage(cover) && emptyImage(load);
-        assert cover.length >= load.length;
+        assert compareSize(cover, load);
         assert cover[0].length >= load[0].length;
 
         int[][] newImage = new int[cover.length][cover[0].length];

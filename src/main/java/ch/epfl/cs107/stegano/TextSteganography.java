@@ -37,7 +37,10 @@ public class TextSteganography {
         assert nullImage(cover);
         assert nullRow(cover);
         assert message != null;
-        if (cover.length == 0) { return new int[0][0]; }
+        if (cover.length == 0) {
+            return new int[0][0];
+        }
+
         int [][] newImage = new int[cover.length][cover[0].length];
         int index = 0;
         for (int i = 0; i < cover.length; ++i) {
@@ -61,9 +64,11 @@ public class TextSteganography {
         assert nullImage(image);
         assert nullRow(image);
         assert shapeCompatibility(image);
+        if (image.length == 0) {
+            return new boolean[0];
+        }
 
-        if (image.length == 0) { return new boolean[0]; }
-        boolean[] boolLSB = new boolean[image.length * image[0].length];
+        boolean[] boolLSB = boolLSB(image);
         int index = 0;
         for (int[] column : image) {
             for (int row : column) {
@@ -90,13 +95,16 @@ public class TextSteganography {
         assert nullImage(cover) && message != null;
         assert nullRow(cover);
         assert shapeCompatibility(cover);
+        if (cover.length == 0) {
+            return new int[0][0];
+        }
 
-        if (cover.length == 0) { return new int[0][0]; }
         boolean[][] boolMessage = new boolean[message.length][8];
         boolean[] newLSB = new boolean[message.length * 8];
         for (int i = 0; i < message.length; ++i) {
             boolMessage[i] = toBitArray(message[i]);
         }
+
         int index = 0;
         for (boolean[] booleans : boolMessage) {
             for (int j = 0; j < 8; ++j) {
@@ -116,16 +124,11 @@ public class TextSteganography {
         assert nullRow(image);
         assert emptyImage(image);
         assert shapeCompatibility(image);
-
-        if (image.length == 0) { return new byte[0]; }
-        boolean[] imageLSB = new boolean[image.length * image[0].length];
-        int index = 0;
-        for (int[] column : image) {
-            for (int row : column) {
-                imageLSB[index] = getLSB(row);
-                index++;
-            }
+        if (image.length == 0) {
+            return new byte[0];
         }
+
+        boolean[] imageLSB = boolLSB(image);
         byte[] message = new byte[imageLSB.length / 8];
         for (int i = 0; i < imageLSB.length / 8; i += 8) {
             boolean[] oneByte = new boolean[8];
@@ -133,5 +136,18 @@ public class TextSteganography {
             message[i] = toByte(oneByte);
         }
         return message;
+    }
+    public static boolean[] boolLSB(int[][] image) {
+        assert nullImage(image);
+        assert nullRow(image);
+        boolean[] boolLSB = new boolean[image.length * image[0].length];
+        int index = 0;
+        for (int[] column : image) {
+            for (int row : column) {
+                boolLSB[index] = getLSB(row);
+                index++;
+            }
+        }
+        return boolLSB;
     }
 }

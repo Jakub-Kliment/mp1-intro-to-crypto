@@ -39,13 +39,12 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] caesar(byte[] plainText, byte key) {
-        assert plainText != null : "The next is empty";
+        assert emptyArrayByte(plainText);
         byte[] cypherText = new byte[plainText.length];
-        for (int i = 0 ; i< cypherText.length ; i++){
-            cypherText[i] = (byte) (plainText[i]+key);
+        for (int i = 0 ; i < cypherText.length; i++) {
+            cypherText[i] = (byte)(plainText[i] + key);
         }
         return cypherText;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -61,14 +60,14 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] vigenere(byte[] plainText, byte[] keyword) {
-        assert (keyword != null)&&(plainText != null) : "The keyword or the text is null";
-        assert Bit.emptyArrayByte(keyword) : "keyword is empty";
+        assert nullArray(plainText) && nullArray(keyword);
+        assert emptyArrayByte(keyword);
+
         byte[] cyphertext = new byte[plainText.length];
-        for (int i = 0 ; i< cyphertext.length ; i++){
-            cyphertext[i] = (byte) (plainText[i]+keyword[i% keyword.length]);
+        for (int i = 0 ; i < cyphertext.length; i++){
+            cyphertext[i] = (byte)(plainText[i] + keyword[i % keyword.length]);
         }
         return cyphertext;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -82,17 +81,18 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] cbc(byte[] plainText, byte[] iv) {
-        assert (plainText!=null)&&(iv!=null) : "iv or text is null";
-        assert Bit.emptyArrayByte(iv) : "iv is empty";
+        assert nullArray(plainText) && nullArray(iv);
+        assert emptyArrayByte(iv);
+
         byte[] key = new byte[iv.length];
-        System.arraycopy(iv,0,key,0,iv.length);
+        System.arraycopy(iv, 0, key, 0, iv.length);
+
         byte[] cipher = new byte[plainText.length];
-        for (int i = 0 ; i<plainText.length ; i++){
-            cipher[i] = (byte) (plainText[i]^key[i% key.length]);
-            key[i% key.length] = cipher[i];
+        for (int i = 0 ; i < plainText.length; i++) {
+            cipher[i] = (byte)(plainText[i] ^ key[i % key.length]);
+            key[i % key.length] = cipher[i];
         }
         return cipher;
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -106,13 +106,12 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] xor(byte[] plainText, byte key) {
-        assert plainText != null : "The text is empty";
+        assert nullArray(plainText);
         byte[] cypher = new byte[plainText.length];
-        for (int i = 0 ; i<plainText.length ; i++){
-            cypher[i] = (byte) (plainText[i]^key);
+        for (int i = 0 ; i < plainText.length; i++) {
+            cypher[i] = (byte)(plainText[i] ^ key);
         }
         return (cypher);
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     // ============================================================================================
@@ -127,14 +126,14 @@ public final class Encrypt {
      * @return an encoded byte array
      */
     public static byte[] oneTimePad(byte[] plainText, byte[] pad) {
-        assert (plainText != null)&&(pad != null) : "The text or the pad is empty";
-        assert pad.length == plainText.length : "The text and the mask need to be the same size";
+        assert nullArray(plainText) && nullArray(pad);
+        assert pad.length == plainText.length;
+
         byte[] cypher = new byte[plainText.length];
-        for (int i = 0 ; i<plainText.length ; i++){
-            cypher[i] = (byte) (plainText[i]^pad[i]);
+        for (int i = 0 ; i < plainText.length; i++){
+            cypher[i] = (byte)(plainText[i] ^ pad[i]);
         }
         return (cypher);
-        //return Helper.fail("NOT IMPLEMENTED");
     }
 
     /**
