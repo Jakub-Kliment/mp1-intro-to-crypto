@@ -40,8 +40,6 @@ public final class Encrypt {
      */
     public static byte[] caesar(byte[] plainText, byte key) {
         assert nullArray(plainText);
-        assert emptyArrayByte(plainText);
-
         byte[] cipherText = new byte[plainText.length];
         for (int i = 0 ; i < cipherText.length; i++) {
             cipherText[i] = (byte)(plainText[i] + key);
